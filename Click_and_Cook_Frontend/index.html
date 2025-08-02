@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click & Cook - Tu Recetario Web</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="index.html" class="logo">Click & Cook</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="pages/explore.html">Explorar</a></li>
+                    <li><a href="pages/myRecipes.html">Mis Recetas</a></li>
+                    <li><a href="pages/addRecipes.html">Agregar Receta</a></li>
+                    <li><a href="pages/stats.html">Estadísticas</a></li>
+                    <li><a href="pages/contact.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="container">
+            <h1>¡Cocina con un Click!</h1>
+            <p>Descubre miles de recetas, guarda tus favoritas y comparte tus creaciones culinarias con el mundo.</p>
+            <a href="pages/explore.html" class="btn btn-primary">Explorar Recetas</a>
+        </section>
+
+        <section id="about" class="container">
+            <h2>Nuestra Historia</h2>
+            <p>En Click & Cook, creemos que cocinar es un arte que debe ser accesible para todos. Nuestra misión es inspirar a chefs caseros de todos los niveles a explorar, crear y disfrutar del placer de la buena comida.</p>
+            <p>Desde recetas rápidas para el día a día hasta platos gourmet para ocasiones especiales, aquí encontrarás un universo de sabores esperándote.</p>
+            <img src="./assets/images/kitchen-illustration.png" alt="Cocina acogedora" style="max-width: 100%; height: auto; margin-top: 30px;">
+        </section>
+
+        <section id="featured-recipes" class="container">
+            <h2>Recetas Destacadas</h2>
+            <div id="featured-recipes-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <p>Cargando recetas...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Click & Cook. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="./js/main.js"></script>
+    <script type="module">
+        import { fetchRandomRecipes } from './js/api.js';
+        import { renderRecipeCards } from './js/dom.js';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const container = document.getElementById('featured-recipes-container');
+            try {
+                const recipes = await fetchRandomRecipes(3); // Carga 3 recetas aleatorias
+                renderRecipeCards(recipes, container);
+            } catch (error) {
+                container.innerHTML = '<p>Lo sentimos, no pudimos cargar las recetas destacadas en este momento.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

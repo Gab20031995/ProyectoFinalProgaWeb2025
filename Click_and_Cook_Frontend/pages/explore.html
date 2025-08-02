@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explorar Recetas - Click & Cook</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Estilos específicos para la página de explorar */
+        #explore-section {
+            padding-top: 80px; /* Espacio para el header fijo si lo tuvieras */
+        }
+        .search-bar {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .search-bar input[type="text"] {
+            width: 60%;
+            max-width: 500px;
+            padding: 12px;
+            border: 2px solid var(--secondary-color-1);
+            border-radius: 8px;
+            font-size: 1.1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+        .search-bar input[type="text"]:focus {
+            border-color: var(--primary-color);
+        }
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 20px 0;
+        }
+        .recipe-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .recipe-card img.recipe-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .recipe-card h3 {
+            min-height: 50px; /* Para que los títulos tengan altura similar */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            line-clamp: 2; /* Limita a 2 líneas */
+            -webkit-box-orient: vertical;
+        }
+        .recipe-card .card-actions {
+            margin-top: auto; /* Empuja los botones al final de la tarjeta */
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            margin-top: 15px;
+        }
+        .recipe-card .btn {
+            flex-grow: 1;
+        }
+        .recipe-card .recipe-category {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <a href="../index.html" class="logo">Click & Cook</a>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Inicio</a></li>
+                    <li><a href="explore.html">Explorar</a></li>
+                    <li><a href="myRecipes.html">Mis Recetas</a></li>
+                    <li><a href="addRecipes.html">Agregar Receta</a></li>
+                    <li><a href="stats.html">Estadísticas</a></li>
+                    <li><a href="contact.html">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="explore-section" class="container">
+            <h1>Explora un Mundo de Sabores</h1>
+            <p>Busca tus recetas favoritas o descubre nuevas ideas culinarias.</p>
+
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Ej. Pollo al curry, Pasta, Vegetariano...">
+                <button class="btn btn-primary" id="search-button">Buscar</button>
+            </div>
+
+            <div id="recipe-results" class="recipe-grid">
+                <p>Usa la barra de búsqueda para encontrar recetas...</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Click & Cook. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script type="module" src="../js/main.js"></script>
+    <script type="module">
+        import { searchRecipes, fetchRandomRecipes } from '../js/api.js';
+        import { renderRecipeCards, showMessage } from '../js/dom.js';
+
+        const searchButton = document.getElementById('search-button');
+        const searchInput = document.getElementById('search-input');
+        const recipeResultsContainer = document.getElementById('recipe-results');
+
+        async function performSearch(query) {
+            if (!query.trim()) {
+                showMessage('Por favor, ingresa un término de búsqueda.', 'info');
+                return;
+            }
+            recipeResultsContainer.innerHTML = '<p>Buscando recetas...</p>';
+            try {
+                const recipes = await searchRecipes(query);
+                renderRecipeCards(recipes, recipeResultsContainer);
+                if (recipes.length === 0) {
+                    recipeResultsContainer.innerHTML = '<p>No se encontraron recetas para tu búsqueda. ¡Intenta con algo diferente!</p>';
+                }
+            } catch (error) {
+                console.error('Error al realizar la búsqueda:', error);
+                showMessage('Ocurrió un error al buscar recetas. Intenta de nuevo más tarde.', 'error');
+                recipeResultsContainer.innerHTML = '<p>Lo sentimos, no pudimos cargar las recetas en este momento.</p>';
+            }
+        }
+
+        // Event listener para el botón de búsqueda
+        searchButton.addEventListener('click', () => {
+            performSearch(searchInput.value);
+        });
+
+        // Event listener para presionar Enter en el input de búsqueda
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                performSearch(searchInput.value);
+            }
+        });
+
+        // Cargar algunas recetas aleatorias al iniciar la página
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const randomRecipes = await fetchRandomRecipes(6); // Carga 6 recetas aleatorias al inicio
+                renderRecipeCards(randomRecipes, recipeResultsContainer);
+            } catch (error) {
+                console.error('Error al cargar recetas aleatorias:', error);
+                recipeResultsContainer.innerHTML = '<p>No pudimos cargar recetas aleatorias en este momento. Intenta buscar algo.</p>';
+            }
+        });
+    </script>
+</body>
+</html>
