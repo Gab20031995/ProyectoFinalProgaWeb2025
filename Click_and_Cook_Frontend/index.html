@@ -3,68 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click & Cook - Tu Recetario Web</title>
-    <link rel="stylesheet" href="./css/styles.css">
+    <title>Click&Cook - Encuentra tu próxima receta</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <header>
+
+    <header class="main-header">
         <div class="container">
-            <a href="index.html" class="logo">Click & Cook</a>
-            <nav>
+            <a href="index.html" class="logo">
+                <img src="assets/logo1.png" alt="Logo de Click & Cook">
+                Click&Cook
+            </a>
+            <nav class="main-nav">
                 <ul>
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="pages/explore.html">Explorar</a></li>
-                    <li><a href="pages/myRecipes.html">Mis Recetas</a></li>
-                    <li><a href="pages/addRecipes.html">Agregar Receta</a></li>
-                    <li><a href="pages/stats.html">Estadísticas</a></li>
-                    <li><a href="pages/contact.html">Contacto</a></li>
+                    <li><a href="index.html" class="active">Inicio</a></li>
+                    <li><a href="recetas.html">Recetas</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </nav>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+            <button class="nav-toggle" aria-label="Abrir menú">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
     <main>
-        <section id="hero" class="container">
-            <h1>¡Cocina con un Click!</h1>
-            <p>Descubre miles de recetas, guarda tus favoritas y comparte tus creaciones culinarias con el mundo.</p>
-            <a href="pages/explore.html" class="btn btn-primary">Explorar Recetas</a>
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="hero-title">Encuentra tu Próxima Receta Favorita</h1>
+                <p class="hero-subtitle">Miles de ideas para inspirar tu cocina. ¿Qué se te antoja hoy?</p>
+                
+                <form class="hero-search-form" action="recetas.html" method="get">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" name="query" placeholder="Busca por plato o ingrediente (ej. lasaña, pollo, chocolate...)">
+                    <button type="submit" class="btn">Buscar</button>
+                </form>
+            </div>
+            <img src="assets/ingredientes.png" alt="Banner de ingredientes frescos" class="hero-background-image">
         </section>
 
-        <section id="about" class="container">
-            <h2>Nuestra Historia</h2>
-            <p>En Click & Cook, creemos que cocinar es un arte que debe ser accesible para todos. Nuestra misión es inspirar a chefs caseros de todos los niveles a explorar, crear y disfrutar del placer de la buena comida.</p>
-            <p>Desde recetas rápidas para el día a día hasta platos gourmet para ocasiones especiales, aquí encontrarás un universo de sabores esperándote.</p>
-            <img src="./assets/images/kitchen-illustration.png" alt="Cocina acogedora" style="max-width: 100%; height: auto; margin-top: 30px;">
-        </section>
-
-        <section id="featured-recipes" class="container">
-            <h2>Recetas Destacadas</h2>
-            <div id="featured-recipes-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                <p>Cargando recetas...</p>
+        <section id="our-mission" class="container">
+            <div class="mission-content">
+                <div class="mission-text">
+                    <h2>¿Qué es Click&Cook?</h2>
+                    <p>Somos una comunidad de amantes de la cocina dedicada a hacer que la gastronomía sea accesible para todos. Aquí podrás explorar miles de recetas, guardar tus favoritas, compartir tus propias creaciones y conectar con otros apasionados por la comida.</p>
+                    <a href="nosotros.html" class="btn">Conoce más de nosotros</a>
+                </div>
+                <div class="mission-image">
+                    <img src="assets/personas.png" alt="Personas">
+                </div>
             </div>
         </section>
+        
+        <section id="recipe-carousel-section">
+            <div class="container">
+                <h2>Explora Nuestras Recetas Populares</h2>
+                <div class="swiper recipe-swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide"><p>Cargando recetas...</p></div>
+                    </div>
+                </div>
+                <div class="swiper-navigation">
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="newsletter-section" class="container">
+            <div class="newsletter-box">
+                <h2>Más experiencias al correo</h2>
+                <p>Recibe recetas, consejos de cocina y novedades directamente en tu correo electrónico. ¡Suscríbete ahora y no te pierdas nada!</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Tu correo electrónico" required>
+                    <button type="submit" class="btn">Suscríbete</button>
+                </form>
+            </div>
+        </section>
+
     </main>
 
-    <footer>
+    <div id="recipe-detail-modal" class="modal-overlay">
+        <div class="modal-content large">
+             <button class="close-modal" aria-label="Cerrar modal">&times;</button>
+             <div class="recipe-detail-content">
+                <div class="recipe-detail-image">
+                    <img id="detail-recipe-img" src="" alt="Foto de la receta">
+                </div>
+                <div class="recipe-detail-text">
+                    <h2 id="detail-recipe-title"></h2>
+                    <p id="detail-recipe-desc"></p>
+                    <h4>Ingredientes</h4>
+                    <ul id="detail-recipe-ingredients"></ul>
+                    <h4>Instrucciones</h4>
+                    <p id="detail-recipe-instructions"></p>
+                    <div class="recipe-detail-actions">
+                        <div class="rating-stars" title="Califica esta receta">
+                            <i class="fa-regular fa-star" data-value="1"></i>
+                            <i class="fa-regular fa-star" data-value="2"></i>
+                            <i class="fa-regular fa-star" data-value="3"></i>
+                            <i class="fa-regular fa-star" data-value="4"></i>
+                            <i class="fa-regular fa-star" data-value="5"></i>
+                        </div>
+                        <button id="btn-favorite" class="btn">Agregar a Mis Recetas</button>
+                    </div>
+                </div>
+             </div>
+        </div>
+    </div>
+    <footer class="main-footer">
         <div class="container">
-            <p>&copy; 2025 Click & Cook. Todos los derechos reservados.</p>
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="index.html" class="logo footer-logo">
+                        <img src="assets/logo2.png" alt="Logo de Click & Cook">
+                        Click&Cook
+                    </a>
+                    <p>Inspirando a cocineros caseros a explorar, crear y disfrutar.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="recetas.html">Recetas</a></li>
+                        <li><a href="nosotros.html">Nosotros</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Síguenos</h4>
+                    <div class="footer-social-icons">
+                         <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                         <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                         <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Click&Cook. Todos los derechos reservados.</p>
+            </div>
         </div>
     </footer>
 
-    <script type="module" src="./js/main.js"></script>
-    <script type="module">
-        import { fetchRandomRecipes } from './js/api.js';
-        import { renderRecipeCards } from './js/dom.js';
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            const container = document.getElementById('featured-recipes-container');
-            try {
-                const recipes = await fetchRandomRecipes(3); // Carga 3 recetas aleatorias
-                renderRecipeCards(recipes, container);
-            } catch (error) {
-                container.innerHTML = '<p>Lo sentimos, no pudimos cargar las recetas destacadas en este momento.</p>';
-            }
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

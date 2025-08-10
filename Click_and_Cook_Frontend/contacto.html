@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Click&Cook</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo1.png" alt="Logo de Click & Cook">
+                Click&Cook
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="recetas.html">Recetas</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="contacto.html" class="active">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+            <button class="nav-toggle" aria-label="Abrir menú">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="contact-page-section container">
+            <h1>Contáctanos</h1>
+            <p class="contact-intro">
+                ¿Tienes una consulta o duda que quieras compartir con nosotros? Estamos para ayudarte.
+            </p>
+
+            <div class="contact-info-box">
+                <h2>Información de Contacto</h2>
+                <p><strong>Correo:</strong> contacto@clickandcook.com</p>
+                <p><strong>Teléfono:</strong> +506 0000-0000</p>
+                <p><strong>Dirección:</strong> San José, Costa Rica</p>
+                <div class="info-box-social">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <h3>Escríbenos un mensaje</h3>
+
+            <form id="contact-form">
+                <div class="form-group">
+                    <label for="contact-name">Nombre:</label>
+                    <input type="text" id="contact-name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact-email">Correo electrónico:</label>
+                    <input type="email" id="contact-email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contact-message">Mensaje:</label>
+                    <textarea id="contact-message" name="message" rows="7" required></textarea>
+                </div>
+
+                <button type="submit" class="btn">Enviar mensaje</button>
+            </form>
+        </section>
+    </main>
+
+   <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="index.html" class="logo footer-logo">
+                        <img src="assets/logo2.png" alt="Logo de Click & Cook">
+                        Click&Cook
+                    </a>
+                    <p>Inspirando a cocineros caseros a explorar, crear y disfrutar.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="recetas.html">Recetas</a></li>
+                        <li><a href="nosotros.html">Nosotros</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Síguenos</h4>
+                    <div class="footer-social-icons">
+                         <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                         <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                         <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Click&Cook. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="./js/main.js"></script>
+</body>
+</html>

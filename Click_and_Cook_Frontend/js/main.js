@@ -1,47 +1,205 @@
-import { fetchRandomRecipes } from './api.js';
-import { renderRecipeCards, showMessage } from './dom.js';
-
+// js/main.js
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Click & Cook - DOM completamente cargado.');
-    loadInitialContent();
-    setupNavigationEvents();
-    // Otras inicializaciones o eventos globales
-});
 
-function loadInitialContent() {
-    // Dependiendo de la página, cargar contenido específico
-    const currentPage = window.location.pathname.split('/').pop();
+    // --- 1. LÓGICA PARA EL MENÚ RESPONSIVE (HAMBURGUESA) ---
+    const navToggle = document.querySelector('.nav-toggle');
+    const mainNav = document.querySelector('.main-nav');
 
-    if (currentPage === '' || currentPage === 'index.html') {
-        // Lógica específica para la página de inicio
-        // Por ejemplo, podríamos cargar algunas recetas destacadas aquí
-        // fetchRandomRecipes(3).then(recipes => {
-        //     const container = document.getElementById('featured-recipes-container');
-        //     if (container) {
-        //         renderRecipeCards(recipes, container);
-        //     }
-        // }).catch(error => console.error('Error al cargar recetas destacadas:', error));
-    } else if (currentPage === 'explore.html') {
-        // Lógica para la página de exploración
-        const searchButton = document.getElementById('search-button');
-        if (searchButton) {
-            searchButton.addEventListener('click', () => {
-                const searchInput = document.getElementById('search-input');
-                // Llama a la función de búsqueda de api.js
-                // Por ejemplo: searchRecipes(searchInput.value);
-                showMessage('Buscando recetas...', 'info');
-            });
-        }
+    if (navToggle) {
+        navToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('nav-visible');
+        });
     }
-    // Añade más lógica para otras páginas según sea necesario
-}
+    
+    // --- URLs DEL BACKEND ---
+    const API_BASE_URL = 'http://127.0.0.1:8000';
+    const API_URL_RANDOM = `${API_BASE_URL}/recipes/random/10`;
+    const API_URL_LOOKUP_BY_ID = `${API_BASE_URL}/recipe/`;
+    const API_URL_MY_RECIPES = `${API_BASE_URL}/my-recipes`;
 
-function setupNavigationEvents() {
-    // Ejemplo de cómo podrías manejar eventos de navegación si tuvieras SPA
-    // Por ahora, como son HTML separados, no es tan crítico aquí.
-    // Pero si quieres "precargar" contenido al hacer hover, podrías añadirlo.
-}
 
-// Puedes añadir funciones globales aquí que se usen en varias partes del sitio
-// Por ejemplo, una función para mostrar mensajes de éxito/error en el sitio
-window.displayGlobalMessage = showMessage;
+    // --- 2. SELECTORES DEL DOM ---
+    const swiperWrapper = document.querySelector('.recipe-swiper .swiper-wrapper');
+    const detailModal = document.getElementById('recipe-detail-modal');
+
+
+    // --- 3. INICIALIZACIÓN DEL CARRUSEL (SWIPER.JS) ---
+    const swiper = new Swiper('.recipe-swiper', {
+        loop: true,
+        spaceBetween: 30,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        breakpoints: {
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+
+    // --- 4. LÓGICA DEL MODAL ---
+
+    const saveRecipeToFavorites = async (recipeId) => {
+        try {
+            const response = await fetch(`${API_URL_MY_RECIPES}/${recipeId}`, {
+                method: 'POST'
+            });
+            const result = await response.json();
+            alert(result.message);
+        } catch (error) {
+            console.error('Error saving recipe:', error);
+            alert('No se pudo guardar la receta.');
+        }
+    };
+
+    const showDetailModal = (recipe) => {
+        const ingredients = [];
+        for (let i = 1; i <= 20; i++) {
+            if (recipe[`strIngredient${i}`]) {
+                ingredients.push(`${recipe[`strMeasure${i}`] || ''} ${recipe[`strIngredient${i}`]}`);
+            }
+        }
+        detailModal.querySelector('#detail-recipe-img').src = recipe.strMealThumb;
+        detailModal.querySelector('#detail-recipe-title').textContent = recipe.strMeal;
+        detailModal.querySelector('#detail-recipe-desc').textContent = `Categoría: ${recipe.strCategory}`;
+        detailModal.querySelector('#detail-recipe-instructions').textContent = recipe.strInstructions;
+        const ingredientsList = detailModal.querySelector('#detail-recipe-ingredients');
+        ingredientsList.innerHTML = '';
+        ingredients.forEach(ing => {
+            const li = document.createElement('li');
+            li.textContent = ing.trim();
+            ingredientsList.appendChild(li);
+        });
+
+        // Aseguramos que el botón de eliminar no sea visible en esta vista
+        const favoriteButton = detailModal.querySelector('#btn-favorite');
+        const deleteButton = document.getElementById('btn-delete');
+        
+        favoriteButton.style.display = 'block';
+        if (deleteButton) deleteButton.style.display = 'none';
+        
+        favoriteButton.dataset.recipeId = recipe.idMeal;
+
+        detailModal.classList.add('visible');
+    };
+
+    const fetchRecipeDetails = async (recipeId) => {
+        try {
+            const response = await fetch(`${API_URL_LOOKUP_BY_ID}${recipeId}`);
+            const data = await response.json();
+            if (data.meals && data.meals.length > 0) {
+                showDetailModal(data.meals[0]);
+            }
+        } catch (error) {
+            console.error('Error al buscar detalles de la receta:', error);
+        }
+    };
+
+
+    // --- 5. LÓGICA DE CARGA DEL CARRUSEL ---
+
+    const fetchAndRenderCarousel = async () => {
+        if (!swiperWrapper) return;
+        try {
+            const response = await fetch(API_URL_RANDOM);
+            const data = await response.json();
+            const recipes = data.meals;
+
+            if (recipes) {
+                swiperWrapper.innerHTML = '';
+                recipes.forEach(recipe => {
+                    const slide = document.createElement('div');
+                    slide.className = 'swiper-slide';
+                    slide.innerHTML = `
+                        <div class="recipe-card">
+                             <div class="card-image-container">
+                                <img src="${recipe.strMealThumb}" alt="Imagen de ${recipe.strMeal}">
+                            </div>
+                            <div class="card-content">
+                                <h3>${recipe.strMeal}</h3>
+                                <button class="btn btn-small open-detail-btn" data-recipe-id="${recipe.idMeal}">Ver Receta</button>
+                            </div>
+                        </div>
+                    `;
+                    swiperWrapper.appendChild(slide);
+                });
+                
+                swiper.update();
+                swiper.loopDestroy();
+                swiper.loopCreate();
+
+            } else {
+                swiperWrapper.innerHTML = '<p>No se pudieron cargar las recetas.</p>';
+            }
+        } catch (error) {
+            console.error("Error al cargar recetas para el carrusel:", error);
+            swiperWrapper.innerHTML = '<p>Error de conexión. Intenta de nuevo más tarde.</p>';
+        }
+    };
+
+    // --- 6. MANEJADORES DE EVENTOS ---
+
+    document.body.addEventListener('click', (e) => {
+        const detailButton = e.target.closest('.open-detail-btn');
+        const closeModalButton = e.target.matches('.close-modal');
+        const favoriteButton = e.target.closest('#btn-favorite');
+
+        if (detailButton) {
+            const recipeId = detailButton.dataset.recipeId;
+            fetchRecipeDetails(recipeId);
+        }
+        if (closeModalButton) {
+            e.target.closest('.modal-overlay').classList.remove('visible');
+        }
+        if (favoriteButton) {
+            const recipeId = favoriteButton.dataset.recipeId;
+            saveRecipeToFavorites(recipeId);
+        }
+    });
+
+// Selector para el formulario de contacto
+    const contactForm = document.getElementById('contact-form');
+
+    // URL del nuevo endpoint de la API
+    const API_URL_CONTACT = 'http://127.0.0.1:8000/submit-contact';
+
+    // Manejador del evento de envío del formulario
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Evita que la página se recargue
+
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch(API_URL_CONTACT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert(result.message);
+                    contactForm.reset(); // Limpia el formulario
+                } else {
+                    alert(`Error: ${result.detail}`);
+                }
+            } catch (error) {
+                console.error('Error al enviar el formulario:', error);
+                alert('Hubo un problema al enviar tu mensaje. Intenta de nuevo más tarde.');
+            }
+        });
+    }
+
+
+    // --- 7. INICIALIZACIÓN ---
+    fetchAndRenderCarousel();
+});
