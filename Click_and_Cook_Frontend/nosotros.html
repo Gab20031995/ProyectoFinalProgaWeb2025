@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre Nosotros - Click&Cook</title>
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
     <header class="main-header">
         <div class="container">
@@ -23,8 +23,8 @@
             <nav class="main-nav">
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
-                    <li><a href="recetas.html">Recetas</a></li>
-                    <li><a href="nosotros.html" class="active">Nosotros</a></li>
+                    <li><a href="recetas.html" class="active">Recetas</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
                     <li><a href="contacto.html">Contacto</a></li>
                 </ul>
             </nav>
@@ -40,63 +40,66 @@
     </header>
 
     <main>
-        <section class="container about-us-section">
-            <h1>Sobre Nosotros</h1>
-            <p>
-                Bienvenidos a Cook&Click, tu rincón digital para explorar el arte culinario. Somos un equipo de apasionados
-                por la cocina que cree que cada plato es una historia, y cada ingrediente, una palabra en ese relato.
-            </p>
-
-            <div class="team-container">
-                <div class="team-member">
-                    <img src="assets/jeralin.jpg" alt="Foto de Jeralin Flores">
-                    <div class="footer-social-icons">
-                         <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                         <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                         <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-                    </div>
-                    <h3>Jeralin Flores</h3>
-                    <p>
-                        Con más de 15 años de experiencia, su pasión es fusionar sabores, olores y texturas, su objetivo es
-                        demostrar que la cocina es un lenguaje universal que une culturas y corazones.
+        <div class="bg-gray-50 py-12 lg:py-20">
+            <div class="container mx-auto px-6">
+                
+                <div class="text-center mb-16">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-800 tracking-tight">Sobre Nosotros</h1>
+                    <p class="text-lg text-gray-600 mt-4 max-w-3xl mx-auto">
+                        Bienvenidos a Click&Cook, tu rincón digital para explorar el arte culinario. Somos un equipo de apasionados por la cocina que cree que cada plato es una historia.
                     </p>
                 </div>
 
-                <div class="team-member">
-                    <img src="assets/Gabriel.jpg" alt="Foto de Gabriel">
-                    <div class="footer-social-icons">
-                         <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                         <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                         <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-20">
+                    
+                    <div class="text-center">
+                        <img class="w-32 h-32 rounded-full mx-auto -mb-16 border-4 border-white shadow-md relative z-10" src="assets/jeralin.jpg" alt="Foto de Jeralin Flores">
+                        <div class="bg-white rounded-xl shadow-lg px-6 pt-20 pb-8 transition duration-300 hover:scale-105 hover:shadow-2xl">
+                            <h3 class="text-2xl font-bold text-green-800">Jeralin Flores</h3>
+                            <p class="text-gray-500 text-sm mt-1">Chef Principal</p>
+                            <p class="text-gray-600 mt-4 text-sm">Apasionada por fusionar sabores y texturas para demostrar que la cocina es un lenguaje universal que une culturas y corazones.</p>
+                            <div class="mt-5">
+                                <a href="#" class="text-gray-400 hover:text-green-600 mx-2 text-xl transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-green-600 mx-2 text-xl transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-green-600 mx-2 text-xl transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Gabriel Corrales</h3>
-                    <p>
-                        Especialista en Repostería. Con una habilidad única para los postres, su misión es endulzar cada momento y mostrar
-                        que la pastelería es un arte accesible para todos.
-                    </p>
-                </div>
 
-                <div class="team-member">
-                    <img src="assets/JC_foto.jpg" alt="Foto de JC">
-                    <div class="footer-social-icons">
-                         <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                         <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                         <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    <div class="text-center">
+                        <img class="w-32 h-32 rounded-full mx-auto -mb-16 border-4 border-white shadow-md relative z-10" src="assets/Gabriel.jpg" alt="Foto de Gabriel Corrales">
+                        <div class="bg-white rounded-xl shadow-lg px-6 pt-20 pb-8 transition duration-300 hover:scale-105 hover:shadow-2xl">
+                            <h3 class="text-2xl font-bold text-green-800">Gabriel Corrales</h3>
+                            <p class="text-gray-500 text-sm mt-1">Especialista en Repostería</p>
+                            <p class="text-gray-600 mt-4 text-sm">Con una habilidad única para los postres, su misión es endulzar cada momento y mostrar que la pastelería es un arte accesible para todos.</p>
+                            <div class="mt-5">
+                                <a href="#" class="text-gray-400 hover:text-green-600 mx-2 text-xl transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-green-600 mx-2 text-xl transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-green-600 mx-2 text-xl transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Jean Rabbat</h3>
-                    <p>
-                        Experto en Nutrición. Dedicado a crear recetas saludables y balanceadas sin sacrificar el sabor, promoviendo un estilo de vida consciente a través de la alimentación.
-                    </p>
+
+                    <div class="text-center">
+                        <img class="w-32 h-32 rounded-full mx-auto -mb-16 border-4 border-white shadow-md relative z-10" src="assets/JC_foto.jpg" alt="Foto de Jean Rabbat">
+                        <div class="bg-white rounded-xl shadow-lg px-6 pt-20 pb-8 transition duration-300 hover:scale-105 hover:shadow-2xl">
+                            <h3 class="text-2xl font-bold text-green-800">Jean Rabbat</h3>
+                            <p class="text-gray-500 text-sm mt-1">Experto en Nutrición</p>
+                            <p class="text-gray-600 mt-4 text-sm">Dedicado a crear recetas saludables y balanceadas sin sacrificar el sabor, promoviendo un estilo de vida consciente.</p>
+                            <div class="mt-5">
+                                <a href="#" class="text-gray-400 hover:text-green-600 mx-2 text-xl transition-colors"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-green-600 mx-2 text-xl transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                                <a href="#" class="text-gray-400 hover:text-green-600 mx-2 text-xl transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-
-            <p class="mission-statement">
-                Nuestra misión es empoderarte en la cocina, proporcionando recetas claras, consejos útiles y la inspiración necesaria para que te conviertas en tu propio chef. En Cook&Click, no solo cocinas, ¡creas! Únete a nuestra comunidad y déjanos ser parte de tu aventura culinaria.
-            </p>
-        </section>
+        </div>
     </main>
 
-    <footer class="main-footer">
+<footer class="main-footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-col">
@@ -117,9 +120,9 @@
                 <div class="footer-col">
                     <h4>Síguenos</h4>
                     <div class="footer-social-icons">
-                         <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                         <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                         <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
                     </div>
                 </div>
             </div>
@@ -128,6 +131,8 @@
             </div>
         </div>
     </footer>
+
     <script src="./js/main.js"></script>
 </body>
+
 </html>

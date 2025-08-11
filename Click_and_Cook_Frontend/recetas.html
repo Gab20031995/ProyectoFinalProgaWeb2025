@@ -1,194 +1,190 @@
-<!DOCTYPE html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recetas - Click&Cook</title>
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="css/styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recetas - Click&Cook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
-    <header class="main-header">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <img src="assets/logo1.png" alt="Logo de Click & Cook">
-                Click&Cook
-            </a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="recetas.html" class="active">Recetas</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
-                </ul>
-            </nav>
-            <div class="social-icons">
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-            </div>
-            <button class="nav-toggle" aria-label="Abrir menú">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
-
-    <main>
-        <div class="container">
-            <nav class="sub-nav">
-                <button type="button" class="active" data-view="explorar">Explorar</button>
-                <button type="button" data-view="mis-recetas">Mis Recetas</button>
-                <button type="button" data-view="agregar-receta">Agregar Receta</button>
-                <button type="button" data-view="estadisticas">Estadísticas</button>
-            </nav>
-
-            <div class="content-wrapper">
-                <section id="explorar" class="active">
-                    <h2>Descubre Nuevos Sabores</h2>
-                    <p class="section-subtitle">Una colección de recetas curadas para inspirar tu próxima aventura en la cocina.</p>
-                    <div class="filters-container">
-                        <div class="search-wrapper">
-                            <i class="fas fa-search"></i>
-                            <input type="search" id="search-input" placeholder="Busca tu receta favorita...">
-                        </div>
-                        <div id="category-filters" class="category-buttons">
-                            <p>Cargando categorías...</p>
-                        </div>
-                    </div>
-                    <div id="explore-grid" class="recipe-grid">
-                    </div>
-                </section>
-
-                <section id="agregar-receta">
-                    <h2>Agrega tu Receta</h2>
-                    <p class="section-subtitle">Comparte tus creaciones culinarias con la comunidad de Click&Cook.</p>
-                    <form id="add-recipe-form" class="recipe-form">
-                        <div class="form-group">
-                            <label for="recipe-name">Nombre de la Receta</label>
-                            <input type="text" id="recipe-name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="recipe-category">Categoría</label>
-                            <input type="text" id="recipe-category" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="recipe-image">URL de la Imagen</label>
-                            <input type="url" id="recipe-image">
-                        </div>
-                        <div class="form-group">
-                            <label for="recipe-instructions">Instrucciones</label>
-                            <textarea id="recipe-instructions" rows="8" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="recipe-ingredients">Ingredientes (uno por línea, ej: 1 taza de harina)</label>
-                            <textarea id="recipe-ingredients" rows="5"></textarea>
-                        </div>
-                        <button type="submit" class="btn">Guardar Receta</button>
-                    </form>
-                </section>
-            </div>
-        </div>
-    </main>
-    
-<div id="recipe-detail-modal" class="modal-overlay">
-    <div class="modal-content large">
-        <button class="close-modal" aria-label="Cerrar modal">&times;</button>
-        <div class="recipe-detail-content">
-            <div class="recipe-detail-image">
-                <img id="detail-recipe-img" src="" alt="Foto de la receta">
-            </div>
-            <div class="recipe-detail-text">
-                <h2 id="detail-recipe-title"></h2>
-                <p id="detail-recipe-desc"></p>
-                <h4>Ingredientes</h4>
-                <ul id="detail-recipe-ingredients"></ul>
-                <h4>Instrucciones</h4>
-                <p id="detail-recipe-instructions"></p>
-                <div class="modal-actions">
-                    <button id="btn-favorite" class="btn">Agregar a Mis Recetas</button>
-                    <button id="btn-edit" class="btn">Editar Receta</button>
-                    <button id="btn-delete" class="btn btn-danger" style="display: none;">Eliminar de mis recetas</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="edit-recipe-modal" class="modal-overlay">
-    <div class="modal-content large">
-        <button class="close-modal" aria-label="Cerrar modal">&times;</button>
-        <div class="modal-header">
-            <h2>Editar Receta</h2>
+    <header class="main-header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <img src="assets/logo1.png" alt="Logo de Click & Cook">
+                Click&Cook
+            </a>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="recetas.html" class="active">Recetas</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </nav>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+            <button class="nav-toggle" aria-label="Abrir menú">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-        <form id="edit-recipe-form" class="recipe-form">
-            <input type="hidden" id="edit-recipe-id">
-            <div class="form-group">
-                <label for="edit-recipe-name">Nombre de la Receta</label>
-                <input type="text" id="edit-recipe-name" required>
+    </header>
+
+    <main>
+        <div class="container">
+            <nav class="sub-nav">
+                <button type="button" class="active" data-view="explorar">Explorar</button>
+                <button type="button" data-view="mis-recetas">Mis Recetas</button>
+                <button type="button" data-view="agregar-receta">Agregar Receta</button>
+                <button type="button" data-view="estadisticas">Estadísticas</button>
+            </nav>
+
+            <div class="content-wrapper">
+                <section id="explorar" class="active">
+                    <h2>Descubre Nuevos Sabores</h2>
+                    <p class="section-subtitle">Una colección de recetas curadas para inspirar tu próxima aventura en la cocina.</p>
+                    <div class="filters-container">
+                        <div class="search-wrapper">
+                            <i class="fas fa-search"></i>
+                            <input type="search" id="search-input" placeholder="Busca tu receta favorita...">
+                        </div>
+                        <div id="category-filters" class="category-buttons">
+                            <p>Cargando categorías...</p>
+                        </div>
+                    </div>
+                    <div id="explore-grid" class="recipe-grid">
+                    </div>
+                </section>
+
+                <section id="agregar-receta">
+                    <h2>Agrega tu Receta</h2>
+                    <p class="section-subtitle">Comparte tus creaciones culinarias con la comunidad de Click&Cook.</p>
+                    <form id="add-recipe-form" class="recipe-form">
+                        <div class="form-group">
+                            <label for="recipe-name">Nombre de la Receta</label>
+                            <input type="text" id="recipe-name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipe-category">Categoría</label>
+                            <input type="text" id="recipe-category" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipe-image">URL de la Imagen</label>
+                            <input type="url" id="recipe-image">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipe-instructions">Instrucciones</label>
+                            <textarea id="recipe-instructions" rows="8" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipe-ingredients">Ingredientes (uno por línea, ej: 1 taza de harina)</label>
+                            <textarea id="recipe-ingredients" rows="5"></textarea>
+                        </div>
+                        <button type="submit" class="btn">Guardar Receta</button>
+                    </form>
+                </section>
             </div>
-            <div class="form-group">
-                <label for="edit-recipe-category">Categoría</label>
-                <input type="text" id="edit-recipe-category" required>
+        </div>
+    </main>
+
+    <div id="recipe-detail-modal" class="modal-overlay">
+        <div class="modal-content large">
+            <button class="close-modal" aria-label="Cerrar modal">&times;</button>
+            <div class="recipe-detail-content">
+                <div class="recipe-detail-image">
+                    <img id="detail-recipe-img" src="" alt="Foto de la receta">
+                </div>
+                <div class="recipe-detail-text">
+                    <h2 id="detail-recipe-title"></h2>
+                    <p id="detail-recipe-desc"></p>
+                    <h4>Ingredientes</h4>
+                    <ul id="detail-recipe-ingredients"></ul>
+                    <h4>Instrucciones</h4>
+                    <p id="detail-recipe-instructions"></p>
+                    <div class="modal-actions">
+                        <button id="btn-favorite" class="btn">Agregar a Mis Recetas</button>
+                        <button id="btn-edit" class="btn">Editar Receta</button>
+                        <button id="btn-delete" class="btn btn-danger" style="display: none;">Eliminar de mis recetas</button>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="edit-recipe-image">URL de la Imagen</label>
-                <input type="url" id="edit-recipe-image">
-            </div>
-            <div class="form-group">
-                <label for="edit-recipe-instructions">Instrucciones</label>
-                <textarea id="edit-recipe-instructions" rows="8" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="edit-recipe-ingredients">Ingredientes (uno por línea)</label>
-                <textarea id="edit-recipe-ingredients" rows="5"></textarea>
-            </div>
-            <button type="submit" class="btn">Guardar Cambios</button>
-        </form>
+        </div>
     </div>
-</div>
-    
 
+    <div id="edit-recipe-modal" class="modal-overlay">
+        <div class="modal-content large">
+            <button class="close-modal" aria-label="Cerrar modal">&times;</button>
+            <div class="modal-header">
+                <h2>Editar Receta</h2>
+            </div>
+            <form id="edit-recipe-form" class="recipe-form">
+                <input type="hidden" id="edit-recipe-id">
+                <div class="form-group">
+                    <label for="edit-recipe-name">Nombre de la Receta</label>
+                    <input type="text" id="edit-recipe-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-recipe-category">Categoría</label>
+                    <input type="text" id="edit-recipe-category" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-recipe-image">URL de la Imagen</label>
+                    <input type="url" id="edit-recipe-image">
+                </div>
+                <div class="form-group">
+                    <label for="edit-recipe-instructions">Instrucciones</label>
+                    <textarea id="edit-recipe-instructions" rows="8" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-recipe-ingredients">Ingredientes (uno por línea)</label>
+                    <textarea id="edit-recipe-ingredients" rows="5"></textarea>
+                </div>
+                <button type="submit" class="btn">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
 
-   <footer class="main-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <a href="index.html" class="logo footer-logo">
-                        <img src="assets/logo2.png" alt="Logo de Click & Cook">
-                        Click&Cook
-                    </a>
-                    <p>Inspirando a cocineros caseros a explorar, crear y disfrutar.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Navegación</h4>
-                    <ul>
-                        <li><a href="recetas.html">Recetas</a></li>
-                        <li><a href="nosotros.html">Nosotros</a></li>
-                        <li><a href="contacto.html">Contacto</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Síguenos</h4>
-                    <div class="footer-social-icons">
-                         <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                         <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                         <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Click&Cook. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="index.html" class="logo footer-logo">
+                        <img src="assets/logo2.png" alt="Logo de Click & Cook">
+                        Click&Cook
+                    </a>
+                    <p>Inspirando a cocineros caseros a explorar, crear y disfrutar.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="recetas.html">Recetas</a></li>
+                        <li><a href="nosotros.html">Nosotros</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Síguenos</h4>
+                    <div class="footer-social-icons">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Click&Cook. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
 
-    <script src="./js/main.js"></script>
-    <script src="./js/recetas.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/recetas.js"></script>
 </body>
+
 </html>

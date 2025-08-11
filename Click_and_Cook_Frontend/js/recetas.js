@@ -299,7 +299,7 @@ document.addEventListener('DOMContentLoaded', () => {
             button.classList.add('active');
 
             const view = button.dataset.view;
-            const sections = document.querySelectorAll('main .container section');
+            const sections = document.querySelectorAll('.content-wrapper section');
             const filters = document.querySelector('.filters-container');
 
             sections.forEach(section => section.classList.remove('active'));

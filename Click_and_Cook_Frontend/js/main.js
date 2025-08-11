@@ -16,30 +16,78 @@ document.addEventListener('DOMContentLoaded', () => {
     const API_URL_RANDOM = `${API_BASE_URL}/recipes/random/10`;
     const API_URL_LOOKUP_BY_ID = `${API_BASE_URL}/recipe/`;
     const API_URL_MY_RECIPES = `${API_BASE_URL}/my-recipes`;
+    const API_URL_CONTACT = 'http://127.0.0.1:8000/submit-contact';
 
 
     // --- 2. SELECTORES DEL DOM ---
-    const swiperWrapper = document.querySelector('.recipe-swiper .swiper-wrapper');
     const detailModal = document.getElementById('recipe-detail-modal');
+    const contactForm = document.getElementById('contact-form');
 
 
-    // --- 3. INICIALIZACIÓN DEL CARRUSEL (SWIPER.JS) ---
-    const swiper = new Swiper('.recipe-swiper', {
-        loop: true,
-        spaceBetween: 30,
-        autoplay: {
-          delay: 3000,
-          disableOnInteraction: false,
-        },
-        breakpoints: {
-            640: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-        },
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
+    // --- 3. LÓGICA DEL CARRUSEL (SWIPER.JS) - CORREGIDO ---
+    const swiperContainer = document.querySelector('.recipe-swiper');
+
+    if (swiperContainer) {
+        const swiper = new Swiper(swiperContainer, {
+            loop: true,
+            spaceBetween: 30,
+            autoplay: {
+              delay: 3000,
+              disableOnInteraction: false,
+            },
+            breakpoints: {
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 3 },
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+
+        const fetchAndRenderCarousel = async () => {
+            const swiperWrapper = document.querySelector('.recipe-swiper .swiper-wrapper');
+            if (!swiperWrapper) return;
+            try {
+                const response = await fetch(API_URL_RANDOM);
+                const data = await response.json();
+                const recipes = data.meals;
+
+                if (recipes) {
+                    swiperWrapper.innerHTML = '';
+                    recipes.forEach(recipe => {
+                        const slide = document.createElement('div');
+                        slide.className = 'swiper-slide';
+                        slide.innerHTML = `
+                            <div class="recipe-card">
+                                 <div class="card-image-container">
+                                    <img src="${recipe.strMealThumb}" alt="Imagen de ${recipe.strMeal}">
+                                </div>
+                                <div class="card-content">
+                                    <h3>${recipe.strMeal}</h3>
+                                    <button class="btn btn-small open-detail-btn" data-recipe-id="${recipe.idMeal}">Ver Receta</button>
+                                </div>
+                            </div>
+                        `;
+                        swiperWrapper.appendChild(slide);
+                    });
+                    
+                    swiper.update();
+                    swiper.loopDestroy();
+                    swiper.loopCreate();
+
+                } else {
+                    swiperWrapper.innerHTML = '<p>No se pudieron cargar las recetas.</p>';
+                }
+            } catch (error) {
+                console.error("Error al cargar recetas para el carrusel:", error);
+                swiperWrapper.innerHTML = '<p>Error de conexión. Intenta de nuevo más tarde.</p>';
+            }
+        };
+
+        fetchAndRenderCarousel();
+    }
+
 
     // --- 4. LÓGICA DEL MODAL ---
 
@@ -75,14 +123,13 @@ document.addEventListener('DOMContentLoaded', () => {
             ingredientsList.appendChild(li);
         });
 
-        // Aseguramos que el botón de eliminar no sea visible en esta vista
         const favoriteButton = detailModal.querySelector('#btn-favorite');
         const deleteButton = document.getElementById('btn-delete');
         
-        favoriteButton.style.display = 'block';
+        if(favoriteButton) favoriteButton.style.display = 'block';
         if (deleteButton) deleteButton.style.display = 'none';
         
-        favoriteButton.dataset.recipeId = recipe.idMeal;
+        if(favoriteButton) favoriteButton.dataset.recipeId = recipe.idMeal;
 
         detailModal.classList.add('visible');
     };
@@ -100,48 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
-    // --- 5. LÓGICA DE CARGA DEL CARRUSEL ---
-
-    const fetchAndRenderCarousel = async () => {
-        if (!swiperWrapper) return;
-        try {
-            const response = await fetch(API_URL_RANDOM);
-            const data = await response.json();
-            const recipes = data.meals;
-
-            if (recipes) {
-                swiperWrapper.innerHTML = '';
-                recipes.forEach(recipe => {
-                    const slide = document.createElement('div');
-                    slide.className = 'swiper-slide';
-                    slide.innerHTML = `
-                        <div class="recipe-card">
-                             <div class="card-image-container">
-                                <img src="${recipe.strMealThumb}" alt="Imagen de ${recipe.strMeal}">
-                            </div>
-                            <div class="card-content">
-                                <h3>${recipe.strMeal}</h3>
-                                <button class="btn btn-small open-detail-btn" data-recipe-id="${recipe.idMeal}">Ver Receta</button>
-                            </div>
-                        </div>
-                    `;
-                    swiperWrapper.appendChild(slide);
-                });
-                
-                swiper.update();
-                swiper.loopDestroy();
-                swiper.loopCreate();
-
-            } else {
-                swiperWrapper.innerHTML = '<p>No se pudieron cargar las recetas.</p>';
-            }
-        } catch (error) {
-            console.error("Error al cargar recetas para el carrusel:", error);
-            swiperWrapper.innerHTML = '<p>Error de conexión. Intenta de nuevo más tarde.</p>';
-        }
-    };
-
-    // --- 6. MANEJADORES DE EVENTOS ---
+    // --- 5. MANEJADORES DE EVENTOS ---
 
     document.body.addEventListener('click', (e) => {
         const detailButton = e.target.closest('.open-detail-btn');
@@ -161,16 +167,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-// Selector para el formulario de contacto
-    const contactForm = document.getElementById('contact-form');
-
-    // URL del nuevo endpoint de la API
-    const API_URL_CONTACT = 'http://127.0.0.1:8000/submit-contact';
-
-    // Manejador del evento de envío del formulario
+    // --- 6. LÓGICA DEL FORMULARIO DE CONTACTO ---
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault(); // Evita que la página se recargue
+            e.preventDefault(); 
 
             const formData = new FormData(contactForm);
             const data = Object.fromEntries(formData.entries());
@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (response.ok) {
                     alert(result.message);
-                    contactForm.reset(); // Limpia el formulario
+                    contactForm.reset();
                 } else {
                     alert(`Error: ${result.detail}`);
                 }
@@ -198,8 +198,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-
-    // --- 7. INICIALIZACIÓN ---
-    fetchAndRenderCarousel();
 });
