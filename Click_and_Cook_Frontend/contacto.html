@@ -2,46 +2,50 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - Click&Cook</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contacto - Click&Cook</title>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.1/cdn/themes/light.css" />
-    
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@shoelace-style/shoelace@2.15.1/cdn/shoelace.js"></script>
-    
-    <link rel="stylesheet" href="css/styles.css">
-    <style>
-        /* Creamos un layout de rejilla simple para organizar los componentes */
-        .contact-layout {
-            display: grid;
-            grid-template-columns: 1fr; /* Una columna por defecto para móviles */
-            gap: 2rem;
-            margin-top: 2rem;
-        }
+  <!-- UIkit CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.19.4/dist/css/uikit.min.css" />
 
-        /* En pantallas más grandes, cambiamos a dos columnas */
-        @media (min-width: 768px) {
-            .contact-layout {
-                grid-template-columns: 1fr 2fr; /* Columna de info más pequeña */
-            }
-        }
-        
-        sl-input, sl-textarea {
-            margin-bottom: 1rem;
-        }
+  <!-- UIkit JS -->
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.19.4/dist/js/uikit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/uikit@3.19.4/dist/js/uikit-icons.min.js"></script>
 
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-    </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+  <link rel="stylesheet" href="css/styles.css">
+
+  <style>
+    .contact-layout {
+      margin-top: 2rem;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+   .uk-button-green {
+        background-color: #418660; /* Verde personalizado */
+        color: white;
+    }
+    .uk-button-green:hover {
+        background-color: #356b4e; /* Verde más oscuro al pasar el mouse */
+        color: white;
+    }
+
+  </style>
 </head>
 
 <body>
-    <header class="main-header">
+
+  <!-- Header -->
+  <header class="main-header">
         <div class="container">
             <a href="index.html" class="logo">
                 <img src="assets/logo1.png" alt="Logo de Click & Cook">
@@ -50,9 +54,9 @@
             <nav class="main-nav">
                 <ul>
                     <li><a href="index.html">Inicio</a></li>
-                    <li><a href="recetas.html" class="active">Recetas</a></li>
+                    <li><a href="recetas.html">Recetas</a></li>
                     <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="contacto.html" class="active">Contacto</a></li>
                 </ul>
             </nav>
             <div class="social-icons">
@@ -65,63 +69,110 @@
             </button>
         </div>
     </header>
-    <header class="main-header">
-        </header>
 
-    <main class="container" style="padding: 2rem;">
-        
-        <div style="text-align: center;">
-            <h1>Contáctanos</h1>
-            <p>Usa nuestros componentes modernos para enviarnos un mensaje.</p>
+  <!-- Offcanvas menú para móviles -->
+  <div id="offcanvas-nav" uk-offcanvas="overlay: true">
+    <div class="uk-offcanvas-bar">
+      <ul class="uk-nav uk-nav-default">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="recetas.html">Recetas</a></li>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <main class="uk-container uk-padding">
+    <div class="uk-text-center">
+      <h1>Contáctanos</h1>
+      <p>Usa este formulario para enviarnos un mensaje.</p>
+    </div>
+
+    <div class="uk-grid-match uk-child-width-1-1 uk-child-width-1-2@m contact-layout" uk-grid>
+      <!-- Información de contacto -->
+      <div>
+        <div class="uk-card uk-card-default uk-card-body">
+          <h3 class="uk-card-title">Información de Contacto</h3>
+
+          <div class="info-item">
+            <span uk-icon="icon: mail"></span>
+            <span>contacto@clickandcook.com</span>
+          </div>
+          <div class="info-item">
+            <span uk-icon="icon: receiver"></span>
+            <span>+506 0000-0000</span>
+          </div>
+          <div class="info-item">
+            <span uk-icon="icon: location"></span>
+            <span>San José, Costa Rica</span>
+          </div>
+
+          <div class="uk-margin-top">
+            <a class="uk-icon-button" href="#" uk-icon="icon: facebook"></a>
+            <a class="uk-icon-button" href="#" uk-icon="icon: instagram"></a>
+            <a class="uk-icon-button" href="#" uk-icon="icon: whatsapp"></a>
+          </div>
         </div>
+      </div>
 
-        <div class="contact-layout">
-            <div>
-                <sl-card>
-                    <div slot="header">
-                        <h3>Información de Contacto</h3>
-                    </div>
-                    
-                    <div class="info-item">
-                        <sl-icon name="envelope-fill"></sl-icon>
-                        <span>contacto@clickandcook.com</span>
-                    </div>
-                    <div class="info-item">
-                        <sl-icon name="telephone-fill"></sl-icon>
-                        <span>+506 0000-0000</span>
-                    </div>
-                    <div class="info-item">
-                        <sl-icon name="geo-alt-fill"></sl-icon>
-                        <span>San José, Costa Rica</span>
-                    </div>
+      <!-- Formulario -->
+      <div>
+        <h3>Escríbenos un mensaje</h3>
+        <form>
+          <div class="uk-margin">
+            <input class="uk-input" type="text" placeholder="Tu nombre completo" required>
+          </div>
 
-                    <div slot="footer">
-                        <sl-button circle><sl-icon name="facebook"></sl-icon></sl-button>
-                        <sl-button circle><sl-icon name="instagram"></sl-icon></sl-button>
-                        <sl-button circle><sl-icon name="whatsapp"></sl-icon></sl-button>
+          <div class="uk-margin">
+            <input class="uk-input" type="email" placeholder="tucorreo@ejemplo.com" required>
+          </div>
+
+          <div class="uk-margin">
+            <textarea class="uk-textarea" rows="5" placeholder="Escribe aquí tu consulta..." required></textarea>
+          </div>
+
+          <button class="uk-button uk-button-green uk-width-1-1" type="submit">Enviar Mensaje</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+<footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-col">
+                    <a href="index.html" class="logo footer-logo">
+                        <img src="assets/logo2.png" alt="Logo de Click & Cook">
+                        Click&Cook
+                    </a>
+                    <p>Inspirando a cocineros caseros a explorar, crear y disfrutar.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Navegación</h4>
+                    <ul>
+                        <li><a href="recetas.html">Recetas</a></li>
+                        <li><a href="nosotros.html">Nosotros</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Síguenos</h4>
+                    <div class="footer-social-icons">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
                     </div>
-                </sl-card>
+                </div>
             </div>
-
-            <div>
-                 <h3>Escríbenos un mensaje</h3>
-                 <form>
-                    <sl-input label="Nombre" placeholder="Tu nombre completo" required></sl-input>
-                    
-                    <sl-input type="email" label="Correo Electrónico" placeholder="tucorreo@ejemplo.com" required></sl-input>
-
-                    <sl-textarea label="Mensaje" resize="auto" placeholder="Escribe aquí tu consulta..." required></sl-textarea>
-                    
-                    <sl-button type="submit" variant="primary" style="width: 100%;">Enviar Mensaje</sl-button>
-                 </form>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Click&Cook. Todos los derechos reservados.</p>
             </div>
         </div>
-    </main>
+    </footer>
 
-    <footer class="main-footer" style="margin-top: 4rem;">
-        </footer>
-
-    <script src="./js/main.js"></script>
+  <script src="./js/main.js"></script>
 </body>
 
 </html>
