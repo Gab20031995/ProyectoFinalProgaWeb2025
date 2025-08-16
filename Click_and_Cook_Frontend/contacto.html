@@ -15,7 +15,6 @@
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
   <link rel="stylesheet" href="css/styles.css">
 
   <style>
@@ -30,15 +29,15 @@
       margin-bottom: 1rem;
     }
 
-   .uk-button-green {
-        background-color: #418660; /* Verde personalizado */
-        color: white;
-    }
-    .uk-button-green:hover {
-        background-color: #356b4e; /* Verde más oscuro al pasar el mouse */
-        color: white;
+    .uk-button-green {
+      background-color: #418660; /* Verde personalizado */
+      color: white;
     }
 
+    .uk-button-green:hover {
+      background-color: #356b4e; /* Verde más oscuro al pasar el mouse */
+      color: white;
+    }
   </style>
 </head>
 
@@ -46,29 +45,29 @@
 
   <!-- Header -->
   <header class="main-header">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <img src="assets/logo1.png" alt="Logo de Click & Cook">
-                Click&Cook
-            </a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="recetas.html">Recetas</a></li>
-                    <li><a href="nosotros.html">Nosotros</a></li>
-                    <li><a href="contacto.html" class="active">Contacto</a></li>
-                </ul>
-            </nav>
-            <div class="social-icons">
-                <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-            </div>
-            <button class="nav-toggle" aria-label="Abrir menú">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
+    <div class="container">
+      <a href="index.html" class="logo">
+        <img src="assets/logo1.png" alt="Logo de Click & Cook">
+        Click&Cook
+      </a>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="recetas.html">Recetas</a></li>
+          <li><a href="nosotros.html">Nosotros</a></li>
+          <li><a href="contacto.html" class="active">Contacto</a></li>
+        </ul>
+      </nav>
+      <div class="social-icons">
+        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+      </div>
+      <button class="nav-toggle" aria-label="Abrir menú">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
 
   <!-- Offcanvas menú para móviles -->
   <div id="offcanvas-nav" uk-offcanvas="overlay: true">
@@ -119,58 +118,84 @@
       <!-- Formulario -->
       <div>
         <h3>Escríbenos un mensaje</h3>
-        <form>
+        <form id="contact-form">
           <div class="uk-margin">
-            <input class="uk-input" type="text" placeholder="Tu nombre completo" required>
+            <input
+              class="uk-input"
+              id="name"
+              name="name"
+              type="text"
+              placeholder="Tu nombre completo"
+              autocomplete="name"
+              required
+            >
           </div>
 
           <div class="uk-margin">
-            <input class="uk-input" type="email" placeholder="tucorreo@ejemplo.com" required>
+            <input
+              class="uk-input"
+              id="email"
+              name="email"
+              type="email"
+              placeholder="tucorreo@ejemplo.com"
+              autocomplete="email"
+              required
+            >
           </div>
 
           <div class="uk-margin">
-            <textarea class="uk-textarea" rows="5" placeholder="Escribe aquí tu consulta..." required></textarea>
+            <textarea
+              class="uk-textarea"
+              id="message"
+              name="message"
+              rows="5"
+              placeholder="Escribe aquí tu consulta..."
+              required
+            ></textarea>
           </div>
 
-          <button class="uk-button uk-button-green uk-width-1-1" type="submit">Enviar Mensaje</button>
+          <button class="uk-button uk-button-green uk-width-1-1" type="submit">
+            Enviar Mensaje
+          </button>
         </form>
       </div>
-    </div>
-  </main>
+    </div> <!-- 🔹 cierre del grid -->
+
+  </main> <!-- 🔹 cierre del main -->
 
   <!-- Footer -->
-<footer class="main-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-col">
-                    <a href="index.html" class="logo footer-logo">
-                        <img src="assets/logo2.png" alt="Logo de Click & Cook">
-                        Click&Cook
-                    </a>
-                    <p>Inspirando a cocineros caseros a explorar, crear y disfrutar.</p>
-                </div>
-                <div class="footer-col">
-                    <h4>Navegación</h4>
-                    <ul>
-                        <li><a href="recetas.html">Recetas</a></li>
-                        <li><a href="nosotros.html">Nosotros</a></li>
-                        <li><a href="contacto.html">Contacto</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4>Síguenos</h4>
-                    <div class="footer-social-icons">
-                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Click&Cook. Todos los derechos reservados.</p>
-            </div>
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-col">
+          <a href="index.html" class="logo footer-logo">
+            <img src="assets/logo2.png" alt="Logo de Click & Cook">
+            Click&Cook
+          </a>
+          <p>Inspirando a cocineros caseros a explorar, crear y disfrutar.</p>
         </div>
-    </footer>
+        <div class="footer-col">
+          <h4>Navegación</h4>
+          <ul>
+            <li><a href="recetas.html">Recetas</a></li>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Síguenos</h4>
+          <div class="footer-social-icons">
+            <a href="#"><i class="fa-brands fa-facebook"></i></a>
+            <a href="#"><i class="fa-brands fa-instagram"></i></a>
+            <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Click&Cook. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
 
   <script src="./js/main.js"></script>
 </body>
