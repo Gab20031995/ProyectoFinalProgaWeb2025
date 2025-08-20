@@ -1,15 +1,18 @@
+![LOGO ULEAD](https://github.com/user-attachments/assets/6f54a45a-9049-4952-8bd9-ffe2d4983bf3)
+
+# **2025- II Programación Web**
+# **Proyecto final**
+
+## Profesor: Alejandro Zamora Esquivel
+
+Alumnos:
+- Gabriel Corrales Mora.
+- Jeralin Mayerlin Flores Hernández.
+- Jean Rabbat Sánchez.
+
+
 # 🍳 Click&Cook: Tu App de Recetas
 
-2025- II Programación Web
-
-**Entregable grupal #4**
-
-**Profesor:** Alejandro Zamora Esquivel
-
-**Alumnos:**
-* Gabriel Corrales Mora.
-* Jeralin Mayerlin Flores Hernández.
-* Jean Rabbat Sánchez.
 
 ---
 ### DEMO
