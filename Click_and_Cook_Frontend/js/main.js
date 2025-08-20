@@ -1,4 +1,3 @@
-// js/main.js
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- 1. LÓGICA PARA EL MENÚ RESPONSIVE (HAMBURGUESA) ---

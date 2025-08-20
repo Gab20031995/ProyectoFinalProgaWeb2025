@@ -1,14 +1,14 @@
-# db/db.py
 import mysql.connector
-from mysql.connector import errorcode
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
-# Tus credenciales de la base de datos
 DB_CONFIG = {
-    'host': "localhost",
-    'port': "3306",
-    'user': "root",
-    'password': "0818Jeank*",
-    'database': "recetas_db"
+    'host': os.getenv("DB_HOST", "localhost"),
+    'port': os.getenv("DB_PORT", "3307"),
+    'user': os.getenv("DB_USER", "root"),
+    'password': os.getenv("DB_PASSWORD"),
+    'database': os.getenv("DB_NAME", "recetas_db")
 }
 
 def get_db_connection():
@@ -27,7 +27,6 @@ def init_db():
     """
     db_name = DB_CONFIG['database']
     try:
-        # Conectamos sin especificar la base de datos para poder crearla
         conn_params_without_db = DB_CONFIG.copy()
         conn_params_without_db.pop('database')
         
@@ -37,8 +36,6 @@ def init_db():
         # Creamos la base de datos si no existe
         cursor.execute(f"CREATE DATABASE IF NOT EXISTS `{db_name}` DEFAULT CHARACTER SET 'utf8'")
         print(f"Base de datos '{db_name}' asegurada.")
-        
-        # Ahora nos conectamos a nuestra base de datos específica
         conn.database = db_name
 
         # Creamos la tabla si no existe
@@ -58,4 +55,4 @@ def init_db():
 
     except mysql.connector.Error as err:
         print(f"Error durante la inicialización de la base de datos: {err}")
-        exit(1) # Salimos si no podemos inicializar la BD
+        exit(1) 

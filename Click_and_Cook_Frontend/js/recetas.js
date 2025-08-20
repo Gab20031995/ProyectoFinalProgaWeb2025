@@ -1,4 +1,3 @@
-// js/recetas.js
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- Selectores del DOM ---
@@ -29,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Estado de la aplicación ---
     let allRecipes = [];
     let allCategories = [];
-    let currentView = 'explorar'; // 'explorar', 'mis-recetas', o 'agregar-receta'
+    let currentView = 'explorar'; 
 
     // --- URLs de la API ---
     const API_BASE_URL = 'http://127.0.0.1:8000';
@@ -413,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Carga Inicial de la Página ---
+    //  Carga Inicial de la Página 
     const init = () => {
         fetchCategories();
         fetchRandomRecipes();

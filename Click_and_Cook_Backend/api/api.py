@@ -1,4 +1,3 @@
-# api/api.py
 import httpx
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,7 +6,7 @@ import asyncio
 from db.db import init_db, get_db_connection
 import uuid
 
-# --- Modelos de datos ---
+# Modelos de datos
 class Recipe(BaseModel):
     name: str
     category: str
@@ -20,16 +19,13 @@ class Lead(BaseModel):
     email: str
     message: str
 
-# --- URLs de la API externa ---
+# API externa 
 API_BASE_URL = "https://www.themealdb.com/api/json/v1/1"
 
-# --- Aplicación FastAPI ---
 app = FastAPI(
     title="Click&Cook Backend",
     description="Un intermediario para TheMealDB API, con base de datos local para recetas guardadas y creadas por el usuario."
 )
-
-# --- Evento de Inicio (Actualizado) ---
 @app.on_event("startup")
 def on_startup():
     """Llama a la inicialización de la base de datos y crea las tablas necesarias."""
@@ -38,8 +34,6 @@ def on_startup():
     try:
         conn = get_db_connection()
         cursor = conn.cursor()
-        
-        # Creación de la tabla 'user_recipes' (si no existe)
         create_recipes_table_query = """
         CREATE TABLE IF NOT EXISTS `user_recipes` (
             `id` VARCHAR(36) PRIMARY KEY,
@@ -54,7 +48,6 @@ def on_startup():
         cursor.execute(create_recipes_table_query)
         print("Tabla 'user_recipes' asegurada.")
 
-        # Creación de la nueva tabla 'leads'
         create_leads_table_query = """
         CREATE TABLE IF NOT EXISTS `leads` (
             `id` INT AUTO_INCREMENT PRIMARY KEY,
@@ -73,8 +66,6 @@ def on_startup():
         print(f"Error al crear las tablas: {e}")
         exit(1)
 
-
-# --- CORS Middleware ---
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -83,7 +74,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- Endpoints de TheMealDB ---
+# Endpoints
 @app.get("/categories")
 async def get_categories():
     async with httpx.AsyncClient() as client:
@@ -109,7 +100,6 @@ async def get_recipe_details(recipe_id: str):
         response = await client.get(f"{API_BASE_URL}/lookup.php?i={recipe_id}")
         return response.json()
 
-# --- ENDPOINTS PARA RECETAS GUARDADAS (DE LA API EXTERNA) ---
 @app.post("/my-recipes/{recipe_id}")
 def save_recipe(recipe_id: str):
     conn = get_db_connection()
@@ -197,7 +187,7 @@ def delete_recipe(recipe_id: str):
         return {"message": "La receta no se encontró en tus favoritos."}
     return {"message": "Receta eliminada con éxito."}
 
-# --- NUEVOS ENDPOINTS PARA RECETAS DE USUARIO ---
+
 @app.get("/user-recipe/{recipe_id}")
 def get_user_recipe(recipe_id: str):
     conn = get_db_connection()
@@ -269,7 +259,7 @@ def update_user_recipe(recipe_id: str, updated_recipe: Recipe):
         cursor.close()
         conn.close()
         
-# --- NUEVO ENDPOINT PARA EL FORMULARIO DE CONTACTO ---
+        
 @app.post("/submit-contact")
 def submit_contact_form(lead: Lead):
     """Guarda la información del formulario de contacto en la tabla 'leads'."""

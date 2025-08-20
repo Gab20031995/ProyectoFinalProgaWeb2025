@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Servicio del Backend (tu aplicación FastAPI)
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - DB_HOST=db  
+      - DB_USER=root
+      - DB_PASSWORD=123Queso.  # <-- Validar password
+      - DB_NAME=recetas_db
+      - DB_PORT=3306         
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    restart: always
+    ports:                   
+      - "8000:8000"        
+    environment:
+      MYSQL_ROOT_PASSWORD: 123Queso.  # <-- Validar password
+      MYSQL_DATABASE: recetas_db
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
